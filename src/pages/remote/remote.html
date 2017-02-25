@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Remote
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid style="padding-top: 50px">
+    <ion-row>
+      <ion-col width-33>
+      </ion-col>
+      <ion-col width-33>
+        <button ion-button icon-only class="button-direction" (click)="doAction('up')">
+          <ion-icon name="ios-arrow-up"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col width-33>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-33>
+        <button ion-button icon-only class="button-direction" (click)="doAction('left')">
+          <ion-icon name="ios-arrow-back"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col width-33>
+        <button ion-button icon-only class="button-direction" (click)="doAction('select')">
+          <ion-icon name="ios-radio-button-on"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col width-33>
+        <button ion-button icon-only class="button-direction" (click)="doAction('right')">
+          <ion-icon name="ios-arrow-forward"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-33>
+      </ion-col>
+      <ion-col width-33>
+        <button ion-button icon-only class="button-direction" (click)="doAction('down')">
+          <ion-icon name="ios-arrow-down"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col width-33>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
