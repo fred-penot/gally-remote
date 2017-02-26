@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-
+import { Storage } from '@ionic/storage';
 import { RemotePage } from '../remote/remote';
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
 
 @Component({
-  templateUrl: 'tabs.html'
+  templateUrl: 'tabs.html',
+  providers: [Storage]
 })
 export class TabsPage {
   // this tells the tabs component which Pages

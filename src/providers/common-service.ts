@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CommonService {
-  private login: string = 'gally';
+  private login: string = 'gally-remote';
   private urlApi: string = 'http://192.168.1.17:9595/domoapi/web/index.php/';
   //private urlApi: string = 'http://88.190.12.151:9595/domoapi/web/index.php/';
   private loader: any = null;
