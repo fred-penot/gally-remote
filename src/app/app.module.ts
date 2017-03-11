@@ -1,9 +1,9 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { RemotePage } from '../pages/remote/remote';
+import { VocalPage } from '../pages/vocal/vocal';
+import { SettingPage } from '../pages/setting/setting';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/index';
 
@@ -12,8 +12,8 @@ import { LoginPage } from '../pages/login/index';
   declarations: [
     MyApp,
     LoginPage,
-    AboutPage,
-    ContactPage,
+    VocalPage,
+    SettingPage,
     RemotePage,
     TabsPage
   ],
@@ -24,8 +24,8 @@ import { LoginPage } from '../pages/login/index';
   entryComponents: [
     MyApp,
     LoginPage,
-    AboutPage,
-    ContactPage,
+    VocalPage,
+    SettingPage,
     RemotePage,
     TabsPage
   ],

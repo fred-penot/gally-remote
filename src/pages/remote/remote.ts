@@ -13,14 +13,6 @@ export class RemotePage {
               public remoteService: RemoteService) {
   }
 
-  activeVocalMode(active) {
-    let actionValue = 'remote';
-    if (active) {
-      actionValue = 'vocal';
-    }
-    this.doAction(actionValue);
-  }
-  
   doAction(value) {
     this.remoteService.saveAction(value).then(data => {
       if (data['statut']) {
