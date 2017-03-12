@@ -76,7 +76,7 @@ export class VocalPage {
   addDiscussion(sentenceElement) {
     this.discussion.push(sentenceElement);
     let elementToSave = JSON.stringify(sentenceElement);
-    this.remoteService.saveAction(elementToSave.replace(/"/g, "'")).then(data => {
+    this.remoteService.saveAction(elementToSave.replace('?', '£')).then(data => {
       if (data['statut']) {
         console.log('ok addDiscussion');
       }
