@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { CommonService } from '../../providers/common-service';
 import { SpeechExecService } from '../../providers/speech-exec-service';
 import { GallyCommandService } from '../../providers/gally-command-service';
 import { SpeechCommandService } from '../../providers/speech-command-service';
 import { SpeechService } from '../../providers/speech-service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'page-vocal',
@@ -12,10 +13,13 @@ import { SpeechService } from '../../providers/speech-service';
   providers: [CommonService, SpeechExecService, GallyCommandService, SpeechCommandService, SpeechService]
 })
 export class VocalPage {
+  @ViewChild('content') content;
+
   private mic: string;
   private micSelect: any = {'on': 'mic', 'off': 'mic-off'};
   private gally: any;
-
+  public discussion: any = [];
+  private interval: any;
 
   constructor(public navCtrl: NavController, public platform: Platform, public commonService: CommonService,
               private gallyCommandService: GallyCommandService, public speechService: SpeechService) {
@@ -33,7 +37,7 @@ export class VocalPage {
             for (var i = 0; i < countCommands; i++) {
               this.gally.addCommand(dataCommand['data']['data']['command'][i]);
             }
-            this.gally.getCountCommand();
+            this.discussion = this.gally.getDiscussion();
           } else {
             this.commonService.toastShow(dataCommand['message']);
           }
@@ -51,6 +55,19 @@ export class VocalPage {
     this.mic = this.micSelect.off;
     this.gally.stop();
     this.gally.clearCommand();
+    this.stopWatchDiscussion();
+  }
+
+  startWatchDiscussion() {
+    let interval = Observable.interval(1000);
+    this.interval = interval.subscribe(() => {
+      this.gally.getDiscussion();
+      this.content.scrollToBottom(300);
+    });
+  }
+
+  stopWatchDiscussion() {
+    this.interval.unsubscribe();
   }
 
   checkParam() {
@@ -71,17 +88,19 @@ export class VocalPage {
     });
   }
 
-  activate() {
+  micAction() {
     this.checkParam().then(dataParam => {
       if (dataParam) {
         this.platform.ready().then(() => {
           if ( this.gally.isDefine() ) {
             this.mic = this.micSelect.off;
             this.gally.stop();
+            this.stopWatchDiscussion();
           } else {
             this.gally.setDefine(true);
             this.mic = this.micSelect.on;
             this.gally.record();
+            this.startWatchDiscussion();
           }
         });
       } else {
