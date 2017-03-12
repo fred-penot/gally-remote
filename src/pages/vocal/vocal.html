@@ -7,11 +7,36 @@
 </ion-header>
 
 <ion-content>
+  <p>
+    Toucher le micro, puis parler.
+  </p>
+  <p>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-25></ion-col>
+        <ion-col>
+          <button ion-button icon-only class="button-mic" (click)="activate()">
+            <ion-icon name="{{ mic}}"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col width-25></ion-col>
+      </ion-row>
+    </ion-grid>
+  </p>
   <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
+    <ion-list-header>
+      <ion-icon name="ios-chatbubbles" item-left></ion-icon>
+      Discussion
+    </ion-list-header>
     <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
+      <ion-icon name="logo-android" item-left></ion-icon>
+      <h2>Gally</h2>
+      <p>Salut</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="ios-person" item-left></ion-icon>
+      <h2>Moi</h2>
+      <p>Salut</p>
     </ion-item>
   </ion-list>
 </ion-content>
