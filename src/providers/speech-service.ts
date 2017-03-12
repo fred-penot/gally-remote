@@ -143,8 +143,8 @@ export class SpeechService {
     console.log(this.textCommands.length);
   }
 
-  getDiscussion() {
-    return this.discussion;
+  getDiscussion(position) {
+    return this.discussion[position];
   }
 
   record() {

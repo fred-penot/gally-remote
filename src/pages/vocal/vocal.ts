@@ -5,12 +5,14 @@ import { SpeechExecService } from '../../providers/speech-exec-service';
 import { GallyCommandService } from '../../providers/gally-command-service';
 import { SpeechCommandService } from '../../providers/speech-command-service';
 import { SpeechService } from '../../providers/speech-service';
+import { RemoteService } from '../../providers/remote-service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'page-vocal',
   templateUrl: 'vocal.html',
-  providers: [CommonService, SpeechExecService, GallyCommandService, SpeechCommandService, SpeechService]
+  providers: [CommonService, SpeechExecService, GallyCommandService,
+    SpeechCommandService, SpeechService, RemoteService]
 })
 export class VocalPage {
   @ViewChild('content') content;
@@ -18,11 +20,13 @@ export class VocalPage {
   private mic: string;
   private micSelect: any = {'on': 'mic', 'off': 'mic-off'};
   private gally: any;
-  public discussion: any = [];
+  private discussion: any = [];
+  private currentDiscussion: number = 0;
   private interval: any;
 
   constructor(public navCtrl: NavController, public platform: Platform, public commonService: CommonService,
-              private gallyCommandService: GallyCommandService, public speechService: SpeechService) {
+              private gallyCommandService: GallyCommandService, public speechService: SpeechService,
+              public remoteService: RemoteService) {
     this.mic = this.micSelect.off;
     this.gally = this.speechService;
   }
@@ -37,7 +41,6 @@ export class VocalPage {
             for (var i = 0; i < countCommands; i++) {
               this.gally.addCommand(dataCommand['data']['data']['command'][i]);
             }
-            this.discussion = this.gally.getDiscussion();
           } else {
             this.commonService.toastShow(dataCommand['message']);
           }
@@ -61,8 +64,22 @@ export class VocalPage {
   startWatchDiscussion() {
     let interval = Observable.interval(1000);
     this.interval = interval.subscribe(() => {
-      this.gally.getDiscussion();
+      let sentenceElement = this.gally.getDiscussion(this.currentDiscussion);
+      if (sentenceElement != undefined) {
+        this.addDiscussion(sentenceElement);
+        this.currentDiscussion++;
+      }
       this.content.scrollToBottom(300);
+    });
+  }
+
+  addDiscussion(sentenceElement) {
+    this.discussion.push(sentenceElement);
+    let elementToSave = JSON.stringify(sentenceElement);
+    this.remoteService.saveAction(elementToSave.replace(/"/g, "'")).then(data => {
+      if (data['statut']) {
+        console.log('ok addDiscussion');
+      }
     });
   }
 

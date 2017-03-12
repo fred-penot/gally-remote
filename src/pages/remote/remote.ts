@@ -16,7 +16,7 @@ export class RemotePage {
   doAction(value) {
     this.remoteService.saveAction(value).then(data => {
       if (data['statut']) {
-        console.log('ok');
+        console.log('ok doAction');
       }
     });
   }
